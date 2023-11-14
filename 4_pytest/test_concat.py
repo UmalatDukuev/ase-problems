@@ -1,6 +1,5 @@
 from utils import concat
 import pytest
-#dict = {name: "Umalat"}
 @pytest.mark.parametrize("str1, str2, expected_result", [("123", "456", "123456"),
                                                          ("abc", "def", "abcdef"),
                                                          ("123abc", "456def", "123abc456def"),
