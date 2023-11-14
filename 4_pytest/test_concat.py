@@ -5,7 +5,7 @@ def test_simpletest():
     assert concat("123", "567") == "123567"
     assert concat("abc", "def") == "abcdef"
 
-a
+
 @pytest.mark.parametrize("str1, str2, expected_result", [("", "", ""),
                                                          ("", " ", " "),
                                                          ("123", "456!", "123456!"),
