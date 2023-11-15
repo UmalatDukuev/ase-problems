@@ -1,4 +1,4 @@
-with open('test_1.txt', 'r') as file:
+with open('2_max_bonus/test_1.txt', 'r') as file:
     lines = file.readlines()
 data = {}
 
