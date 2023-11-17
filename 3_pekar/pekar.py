@@ -20,7 +20,7 @@ for name in names_from_file:
     count += 1
     Greeting(name, count)
 
-for i in range(2):
+while True:
     count += 1
     name = input()
     Greeting(name, count)
