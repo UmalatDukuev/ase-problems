@@ -1,4 +1,4 @@
-import pytest
+фывфimport pytest
 import requests
 
 class TestPetAPI:
