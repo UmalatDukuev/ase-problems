@@ -3,6 +3,7 @@ import requests
 import unittest
 class TestPetAPI:
     base_url = "https://petstore.swagger.io/v2/pet"
+
 #создание pet и его ошибки
     @pytest.mark.create
     def test_create_pet(self):
@@ -29,6 +30,7 @@ class TestPetAPI:
         response = requests.post(url, json=data, headers=headers)
         assert response.status_code == 200
         assert response.json()["name"] == "doggie"
+
     @pytest.mark.create
     def test_create_pet_invalid_input(self):
         url = self.base_url
@@ -36,7 +38,7 @@ class TestPetAPI:
         assert response.status_code == 405
 
 # редактирование pet и его ошибки
-    @pytest.mark.edit
+    @pytest.mark.update
     def test_update_pet(self):
         url = self.base_url
         headers = {"Content-Type": "application/json"}
@@ -63,10 +65,16 @@ class TestPetAPI:
         assert response.json()["id"] == 1
         assert response.json()["name"] == "doggie"
 
-    @pytest.mark.edit
+    @pytest.mark.update
     def test_update_pet_invalid_id(self):
         url = self.base_url
         data = {"id": -12, "name": "Fluffy5"}  # Invalid input
+        response = requests.put(url, json=data)
+        assert response.status_code == 200
+    @pytest.mark.update
+    def test_update_pet_not_found(self):
+        url = self.base_url
+        data = {"id": 111111111111, "name": "Fluffy5"}
         response = requests.put(url, json=data)
         assert response.status_code == 200
 
@@ -74,20 +82,19 @@ class TestPetAPI:
     @pytest.mark.find
     def test_find_petByStatus(self):
         url = self.base_url + "/findByStatus"
-        params = {'status': 'available'}
-        response = requests.get(url, params=params)
+        data = {'status': 'available'}
+        response = requests.get(url, data=data)
         assert response.status_code == 200
         for pet in response.json():
             assert pet['status'] == "available"
+
     @pytest.mark.find
     def test_find_petByStatus_Invalid_status_value(self):
         url = self.base_url + "/findByStatus"
-        params = {'status': '1'}
-        response = requests.get(url, params=params)
-        print(response.json())
-        # assert response.status_code == 200
-        # for pet in response.json():
-        #     assert pet['status'] == "available"
+        data = {'status': 123123}
+        response = requests.get(url, params=data)
+        assert response.status_code == 200
+
 
 # поиск pet по айди и его ошибки
     @pytest.mark.find
@@ -103,7 +110,6 @@ class TestPetAPI:
         petid = 1021
         url = self.base_url + f"/{petid}"
         response = requests.get(url)
-        print(response.json())
         assert response.status_code == 404
         assert response.json()["message"] == "Pet not found"
 
@@ -112,5 +118,46 @@ class TestPetAPI:
         petid = 1
         url = self.base_url + f"/{petid}"
         response = requests.get(url)
+        assert response.status_code == 200
+
+    @pytest.mark.update
+    def test_update_data(self):
+        petid = 10
+        url = self.base_url + f"/{petid}"
+        data = {
+            "name": "name",
+            "status": "status"
+        }
+        response = requests.post(url, data=data)
+        assert response.status_code == 200
+
+    @pytest.mark.update
+    def test_update_data_invalid_input(self):
+        petid = 10
+        url = self.base_url + f"/{petid}"
+        data = {
+            "name2222222": "name",
+            "st11111atus": "status"
+        }
+        response = requests.post(url, data=data)
+        assert response.status_code == 200
+
+    @pytest.mark.delete
+    def test_delete_pet(self):
+        petid = 2
+        data = {
+            'api_key': "api-key",
+        }
+        url = self.base_url + f"/{petid}"
+        response = requests.delete(url, data=data)
         assert response.status_code == 404
-        #assert response.json()["message"] == "Invalid ID supplied"
+
+    @pytest.mark.delete
+    def test_delete_pet_not_found(self):
+        petid = 201021
+        data = {
+            'api_key': "api-key",
+        }
+        url = self.base_url + f"/{petid}"
+        response = requests.delete(url, data=data)
+        assert response.status_code == 404
