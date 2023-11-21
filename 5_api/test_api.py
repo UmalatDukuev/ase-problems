@@ -1,6 +1,6 @@
 import pytest
 import requests
-import unittest
+
 class TestPetAPI:
     base_url = "https://petstore.swagger.io/v2/pet"
 
