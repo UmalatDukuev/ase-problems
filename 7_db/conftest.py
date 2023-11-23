@@ -13,11 +13,11 @@ def db_connection():
         database="booking1698648427710xchgffvgswkedxka"
     )
     print("Соединение с базой данных установлено")
-    return connection
+    yield connection
 
 @pytest.fixture(autouse=True)
 def cursor(db_connection):
     cursor = db_connection.cursor(cursor_factory=DictCursor)
-    return cursor
+    yield cursor
 
 

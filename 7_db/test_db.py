@@ -3,6 +3,10 @@ from psycopg2.extras import DictCursor
 import pytest
 
 
+def:
+
+
+
 def close_connection(cursor, connection):
     cursor.close()
     connection.close()
@@ -11,7 +15,7 @@ data = {
     "user_id": 1,
     "user_first_name": "Umalat",
     "user_last_name": "Dukuev",
-    "user_email": "dukuev037@mail.ru20",
+    "user_email": "dukuev037@mail.ru",
 }
 
 @allure.title("Create user test")
