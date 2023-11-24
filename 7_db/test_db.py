@@ -44,7 +44,6 @@ data = {
 @allure.title("Create user test")
 def test_create_user(db_connection):
     connection, cursor = db_connection
-
     cursor.execute("INSERT INTO users (id, first_name, last_name, email) VALUES (%s, %s, %s, %s)",
                    (data["user_id"], data["user_first_name"], data["user_last_name"], data["user_email"]))
     cursor.execute("SELECT * FROM users")
