@@ -29,6 +29,7 @@ def test_login():
     assert "https://www.saucedemo.com/inventory.html" in driver.current_url
     driver.quit()
 
+
 def test_logout():
     driver = init_website()
     login(driver)
@@ -39,12 +40,12 @@ def test_logout():
     driver.quit()
 
 
-@pytest.mark.parametrize("item", [("add-to-cart-sauce-labs-backpack"),
-                                  ("add-to-cart-sauce-labs-bike-light"),
-                                  ("add-to-cart-sauce-labs-bolt-t-shirt"),
-                                  ("add-to-cart-sauce-labs-fleece-jacket"),
-                                  ("add-to-cart-sauce-labs-onesie"),
-                                  ("add-to-cart-test.allthethings()-t-shirt-(red)"),
+@pytest.mark.parametrize("item", ["add-to-cart-sauce-labs-backpack",
+                                  "add-to-cart-sauce-labs-bike-light",
+                                  "add-to-cart-sauce-labs-bolt-t-shirt",
+                                  "add-to-cart-sauce-labs-fleece-jacket",
+                                  "add-to-cart-sauce-labs-onesie",
+                                  "add-to-cart-test.allthethings()-t-shirt-(red)",
                                   ])
 def test_shopping(item):
     driver = init_website()
@@ -81,31 +82,31 @@ def test_counter():
     driver.quit()
 
 
-def test_sort_A_to_Z():
+def test_sort_a_to_z():
     driver = init_website()
     login(driver)
     items = driver.find_elements(By.CLASS_NAME, 'inventory_item_name')
     print()
-    list = []
+    items_list = []
     for item in items:
-        list.append(item.text)
-    print(list)
-    sorted_list = sorted(list)
+        items_list.append(item.text)
+    print(items_list)
+    sorted_list = sorted(items_list)
     print(sorted_list)
-    for i in range(len(list)):
-        assert list[i] == sorted_list[i]
+    for i in range(len(items_list)):
+        assert items_list[i] == sorted_list[i]
     driver.quit()
 
 
 def select(driver, option):
-    select = driver.find_element(By.CLASS_NAME, 'product_sort_container')
-    select.click()
+    select_option = driver.find_element(By.CLASS_NAME, 'product_sort_container')
+    select_option.click()
     select_element = driver.find_element(By.CSS_SELECTOR, ".product_sort_container")
-    select = Select(select_element)
-    select.select_by_value(option)
+    select_option = Select(select_element)
+    select_option.select_by_value(option)
 
 
-def test_sort_Z_to_A():
+def test_sort_z_to_a():
     driver = init_website()
     login(driver)
     select(driver, "za")
