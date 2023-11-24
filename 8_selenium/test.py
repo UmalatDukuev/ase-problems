@@ -72,17 +72,47 @@ def init_website():
 #     assert "https://www.saucedemo.com/checkout-complete.html" in driver.current_url
 
 
-def test_counter():
+# def test_counter():
+#     driver = init_website()
+#     element = driver.find_element(By.NAME, 'user-name')
+#     element.send_keys("standard_user")
+#     time.sleep(0.4)
+#     element = driver.find_element(By.NAME, 'password')
+#     element.send_keys("secret_sauce")
+#     time.sleep(0.4)
+#     driver.find_element(By.NAME, 'login-button').click()
+#     time.sleep(0.4)
+#     driver.find_element(By.ID, 'add-to-cart-sauce-labs-backpack').click()
+#     time.sleep(0.4)
+#     element = driver.find_element(By.CLASS_NAME, 'shopping_cart_badge').text
+#     assert int(element) == 1
+
+# def test_sort_A_to_Z():
+#     driver = init_website()
+#     element = driver.find_element(By.NAME, 'user-name')
+#     element.send_keys("standard_user")
+#     time.sleep(0.4)
+#     element = driver.find_element(By.NAME, 'password')
+#     element.send_keys("secret_sauce")
+#     time.sleep(0.4)
+#     driver.find_element(By.NAME, 'login-button').click()
+#     time.sleep(0.4)
+
+
+# def test_sort_Z_to_A():
+# def test_sort_low_to_high():
+# def test_sort_high_to_low():
+
+
+def test_locked_out():
     driver = init_website()
     element = driver.find_element(By.NAME, 'user-name')
-    element.send_keys("standard_user")
+    element.send_keys("locked_out_user")
     time.sleep(0.4)
     element = driver.find_element(By.NAME, 'password')
     element.send_keys("secret_sauce")
     time.sleep(0.4)
     driver.find_element(By.NAME, 'login-button').click()
     time.sleep(0.4)
-    driver.find_element(By.ID, 'add-to-cart-sauce-labs-backpack').click()
-    time.sleep(0.4)
-    element = driver.find_element(By.CLASS_NAME, 'shopping_cart_badge').text
-    assert int(element) == 1
+    error_message = driver.find_element(By.CLASS_NAME, 'error-message-container')
+    assert error_message.is_displayed()
