@@ -3,11 +3,13 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import time
 from selenium.webdriver.support.select import Select
+import pytest
 
 def init_website():
     driver = webdriver.Firefox()
     driver.get("https://www.saucedemo.com")
     return driver
+
 
 # def test_login():
 #     driver = init_website()
@@ -19,71 +21,60 @@ def init_website():
 #     time.sleep(0.4)
 #     driver.find_element(By.NAME, 'login-button').click()
 #     assert "https://www.saucedemo.com/inventory.html" in driver.current_url
-#
+
+
 # def test_logout():
 #     driver = init_website()
 #     element = driver.find_element(By.NAME, 'user-name')
 #     element.send_keys("standard_user")
 #     time.sleep(0.4)
-
-
 #     element = driver.find_element(By.NAME, 'password')
 #     element.send_keys("secret_sauce")
 #     time.sleep(0.4)
 #     driver.find_element(By.NAME, 'login-button').click()
 #     time.sleep(0.4)
-
-
 #     driver.find_element(By.ID, 'react-burger-menu-btn').click()
 #     time.sleep(0.4)
-
-
 #     driver.find_element(By.ID, 'logout_sidebar_link').click()
 #     assert "https://www.saucedemo.com" in driver.current_url
 
-# @pytest.mark.parametrize("str1, str2, expected_result", [("", "", ""),
-#                                                          ("", " ", " "),
-#                                                          ("123", "456!", "123456!"),
-#                                                          ("abc", "def", "abcdef"),
-#                                                          ("123abc", "456def", "123abc456def"),
-#                                                          ("-123", "+456", "-123+456"),
-#                                                          ("!123@", "_456(", "!123@_456("),
-#                                                          ("-123", "+456", "-123+456"),
-#                                                          ("<p>123</p>", "456", "<p>123</p>456"),
-#                                                          ])
-# def test_success_concat(str1, str2, expected_result):
-#     assert concat(str1, str2) == expected_result
 
-
-# def test_shopping():
-#     driver = init_website()
-#     element = driver.find_element(By.NAME, 'user-name')
-#     element.send_keys("standard_user")
-#     time.sleep(0.4)
-#     element = driver.find_element(By.NAME, 'password')
-#     element.send_keys("secret_sauce")
-#     time.sleep(0.4)
-#     driver.find_element(By.NAME, 'login-button').click()
-#     time.sleep(0.4)
-#     driver.find_element(By.ID, 'add-to-cart-sauce-labs-backpack').click()
-#     time.sleep(0.4)
-#     driver.find_element(By.CLASS_NAME, 'shopping_cart_link').click()
-#     time.sleep(0.4)
-#     driver.find_element(By.ID, 'checkout').click()
-#     element = driver.find_element(By.ID, 'first-name')
-#     element.send_keys("Umalat")
-#     time.sleep(0.4)
-#     element = driver.find_element(By.ID, 'last-name')
-#     element.send_keys("Dukuev")
-#     time.sleep(0.4)
-#     element = driver.find_element(By.ID, 'postal-code')
-#     element.send_keys("123456")
-#     time.sleep(0.4)
-#     driver.find_element(By.ID, 'continue').click()
-#     time.sleep(0.4)
-#     driver.find_element(By.ID, 'finish').click()
-#     time.sleep(0.4)
-#     assert "https://www.saucedemo.com/checkout-complete.html" in driver.current_url
+@pytest.mark.parametrize("item", [("add-to-cart-sauce-labs-backpack"),
+                                  # ("add-to-cart-sauce-labs-bike-light"),
+                                  # ("add-to-cart-sauce-labs-bolt-t-shirt"),
+                                  # ("add-to-cart-sauce-labs-fleece-jacket"),
+                                  # ("add-to-cart-sauce-labs-onesie"),
+                                  # ("add-to-cart-test.allthethings()-t-shirt-(red)"),
+                                  ])
+def test_shopping(item):
+    driver = init_website()
+    element = driver.find_element(By.NAME, 'user-name')
+    element.send_keys("standard_user")
+    time.sleep(0.4)
+    element = driver.find_element(By.NAME, 'password')
+    element.send_keys("secret_sauce")
+    time.sleep(0.4)
+    driver.find_element(By.NAME, 'login-button').click()
+    time.sleep(0.4)
+    driver.find_element(By.ID, item).click()
+    time.sleep(0.4)
+    driver.find_element(By.CLASS_NAME, 'shopping_cart_link').click()
+    time.sleep(0.4)
+    driver.find_element(By.ID, 'checkout').click()
+    element = driver.find_element(By.ID, 'first-name')
+    element.send_keys("Umalat")
+    time.sleep(0.4)
+    element = driver.find_element(By.ID, 'last-name')
+    element.send_keys("Dukuev")
+    time.sleep(0.4)
+    element = driver.find_element(By.ID, 'postal-code')
+    element.send_keys("123456")
+    time.sleep(0.4)
+    driver.find_element(By.ID, 'continue').click()
+    time.sleep(0.4)
+    driver.find_element(By.ID, 'finish').click()
+    time.sleep(0.4)
+    assert "https://www.saucedemo.com/checkout-complete.html" in driver.current_url
 
 
 # def test_counter():
@@ -100,6 +91,7 @@ def init_website():
 #     time.sleep(0.4)
 #     element = driver.find_element(By.CLASS_NAME, 'shopping_cart_badge').text
 #     assert int(element) == 1
+
 
 # def test_sort_A_to_Z():
 #     driver = init_website()
@@ -149,6 +141,7 @@ def init_website():
 #     for i in range(len(list)):
 #         assert list[i] == sorted_list[i]
 
+
 # def test_sort_low_to_high():
 #     driver = init_website()
 #     element = driver.find_element(By.NAME, 'user-name')
@@ -174,6 +167,7 @@ def init_website():
 #     print(sorted_list)
 #     for i in range(len(list)):
 #         assert list[i] == sorted_list[i]
+
 
 # def test_sort_high_to_low():
 #     driver = init_website()
